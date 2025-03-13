@@ -18,11 +18,11 @@ class Student extends Model
 
     public function class()
     {
-        return $this->belongsTo(Classes::class, 'section_id');
+        return $this->belongsTo(Classes::class, 'class_id'); // ✅ Fixed foreign key
     }
 
     public function section()
     {
-        return $this->belongsTo(Section::class);
+        return $this->belongsTo(Section::class, 'section_id'); // ✅ Explicitly defining foreign key
     }
 }
