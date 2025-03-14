@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+use App\Models\Classes;
 use App\Models\Section;
 use App\Models\Student;
 use Filament\Forms\Get;
@@ -11,6 +12,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Exports\StudentsExport;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\BulkAction;
@@ -21,7 +23,6 @@ use Illuminate\Database\Eloquent\Collection;
 use App\Filament\Resources\StudentResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\StudentResource\RelationManagers;
-use App\Models\Classes;
 
 class StudentResource extends Resource
 {
@@ -116,6 +117,9 @@ class StudentResource extends Resource
             
             
             ->actions([
+                Action::make('downloadPdf')->url(function(Student $student){
+                    return route('student.invoice.generate', $student);
+                }),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
